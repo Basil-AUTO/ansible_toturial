@@ -1,3 +1,3 @@
 # ansible_toturial
 
-This is my awsome Ansible repository!
+This is my awesome Ansible repository!
