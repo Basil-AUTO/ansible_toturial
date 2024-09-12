@@ -1,0 +1,16 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+    - name:  create new file
+      file: 
+        path: file 
+        state: absent
+        mode: 777
+    - name:  create new file2
+      file: 
+        path: file1
+        state: absent
+        mode: 777
