@@ -1,4 +1,10 @@
+
+[web_servers]
 192.168.100.4 ansible_port=22
 192.168.100.7 ansible_port=22
+
+[db_servers]
 192.168.100.6 ansible_port=22
+
+[file_servers]
 10.254.83.2 ansible_port=5555
