@@ -7,6 +7,7 @@
 
 
   - name: install updates (CentOS)
+    tags: always
     dnf:
       update_only: yes
       update_cache: yes
@@ -14,6 +15,7 @@
 
 
   - name: install updates (Ubuntu)
+    tags: always 
     apt:
       update_cache: yes
       upgrade: dist
@@ -26,6 +28,7 @@
   tasks:
 
   - name: install httpd pachage (CentOS)
+    tags: centos,httpd,apache
     dnf:
       name:
         - httpd
@@ -34,6 +37,7 @@
     when: ansible_distribution == "CentOS"
 
   - name: install apach2 pachage (Ubuntu)
+    tags: ubuntu,apache2,apache
     apt:
       name:
         - apache2
@@ -41,6 +45,14 @@
       state: latest
     when: ansible_distribution == "Ubuntu"
 
+  - name: copy html file for site
+    tags: apache,apache,apache2,httpd
+    copy:
+      src: default_site.html
+      dest: /var/www/html/index.html
+      owner: root
+      group: root
+      mode: 0644
 
 
 - hosts: db_servers
@@ -48,15 +60,28 @@
   tasks:
 
   - name: install mariadb package (CentOS)
+    tags: centos,db,mariadb
     dnf:
       name: mariadb
       state: latest
     when: ansible_distribution == "CentOS"
 
   - name: install mariadb server
+    tags: ubuntu,db,mariadb
     apt:
       name: mariadb-server
       state: latest
     when: ansible_distribution == "Ubuntu"
 
+
+
+- hosts: file_servers
+  become: true
+  tasks:
+
+  - name: install samba file server
+    tags: centos,ubuntu,smaba
+    package:
+      name: samba
+      state: latest
 
